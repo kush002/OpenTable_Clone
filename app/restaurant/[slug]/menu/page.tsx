@@ -5,11 +5,11 @@ import Header from "../components/Header";
 import RestaurantNavBar from "../components/RestaurantNavBar";
 import Menu from "../components/Menu";
 
-const MenuPage = () => {
+const MenuPage = (slug: string) => {
   return (
     <>
       <div className="bg-white w-[100%] rounded p-3 shadow">
-        <RestaurantNavBar />
+        <RestaurantNavBar slug={slug} />
         <Menu />
       </div>
     </>
