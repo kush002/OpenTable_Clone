@@ -519,6 +519,8 @@ export default async function handler(
 
   const restaurants = await prisma.restaurant.findMany();
 
+  if (!restaurants) throw new Error("Restaurent not found");
+
   const vivaanId =
     restaurants.find((restaurant) => restaurant.name === "Vivaan - fine Indian")
       ?.id || 1;
