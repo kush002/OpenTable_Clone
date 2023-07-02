@@ -16,7 +16,7 @@ const fetchItems = async (slug: string) => {
     },
   });
 
-  if (!restaurant) throw new Error("Resturant not exist");
+  if (!restaurant) throw new Error("Restaurant details incomplete");
 
   return restaurant.items;
 };
