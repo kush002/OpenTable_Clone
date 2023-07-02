@@ -23,7 +23,7 @@ const fetchItems = async (slug: string) => {
 
 const MenuPage = async ({ params }: { params: { slug: string } }) => {
   const menuItems = await fetchItems(params.slug);
-  console.log({ menuItems });
+
   return (
     <>
       <div className="bg-white w-[100%] rounded p-3 shadow">
