@@ -54,7 +54,7 @@ const RestaurantDetailsPage = async ({
   return (
     <>
       <div className="bg-white w-[70%] rounded p-3 shadow">
-        <RestaurantNavBar name={restaurant.slug} />
+        <RestaurantNavBar slug={restaurant.slug} />
         <Title title={restaurant.name} />
         <Ratings />
         <Description desc={restaurant.description} />
