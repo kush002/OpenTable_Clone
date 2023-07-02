@@ -23,6 +23,8 @@ interface Restaurant {
 }
 
 const fetchRestaurantBySlug = async (slug: string): Promise<Restaurant> => {
+  console.log("Fetching restaurant details for slug:", slug);
+
   const restaurantDetails = await prisma.restaurant.findUnique({
     where: {
       slug,
@@ -38,6 +40,7 @@ const fetchRestaurantBySlug = async (slug: string): Promise<Restaurant> => {
   });
 
   if (!restaurantDetails) {
+    console.log("Restauranat with slug:", slug, "does not exist.");
     throw new Error("Resturant Not Exist");
   }
 
@@ -49,6 +52,8 @@ const RestaurantDetailsPage = async ({
 }: {
   params: { slug: string };
 }) => {
+  console.log("RestaurantDetailsPage slug:", params.slug);
+
   const restaurant = await fetchRestaurantBySlug(params.slug);
 
   return (
