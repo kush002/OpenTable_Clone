@@ -22,7 +22,7 @@ const RestaurantCard = ({ restaurant, reviews }: Props) => {
         <div className="p-1">
           <h3 className="font-bold text-2xl mb-2">{restaurant.name}</h3>
           <div className="flex items-start">
-            <Stars reviews={restaurant.reviews} />
+            <Stars reviews={restaurant.reviews} Individualrating={0} />
             <p className="ml-2">{`${reviews.length} ${
               reviews.length === 1 ? "Review" : "Reviews"
             }`}</p>
