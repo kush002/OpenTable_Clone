@@ -16,7 +16,7 @@ const Menu = ({ menu }: { menu: Item[] }) => {
             ))}
           </div>
         ) : (
-          <p>Restaurant does not provide menu</p>
+          <div>Restaurant does not provide menu</div>
         )}
       </div>
     </main>

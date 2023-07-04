@@ -3,7 +3,7 @@ import { Inter } from "@next/font/google";
 import styles from "./page.module.css";
 import Header from "./components/Header";
 import RestaurantCard from "./components/RestaurantCard";
-import { Cuisine, Location, PRICE, PrismaClient } from "@prisma/client";
+import { Cuisine, Location, PRICE, PrismaClient, Review } from "@prisma/client";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,6 +16,7 @@ export interface RestaurantTypeCard {
   price: PRICE;
   slug: string;
   description: string;
+  reviews: Review[];
 }
 
 const prisma = new PrismaClient();
@@ -31,6 +32,7 @@ const fetchRestaurant = async (): Promise<RestaurantTypeCard[]> => {
       price: true,
       slug: true,
       description: true,
+      reviews: true,
     },
   });
 
@@ -47,7 +49,11 @@ export default async function Home() {
       <Header />
       <div className="py-3 px-36 mt-10 flex flex-wrap">
         {restaurants.map((restaurant) => (
-          <RestaurantCard key={restaurant.id} restaurant={restaurant} />
+          <RestaurantCard
+            key={restaurant.id}
+            restaurant={restaurant}
+            reviews={restaurant.reviews}
+          />
         ))}
       </div>
       {/* Cards */}

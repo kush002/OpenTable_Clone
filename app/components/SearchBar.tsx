@@ -3,7 +3,7 @@ import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
 const SearchBar = () => {
-  const [location, setLocation] = useState<string>();
+  const [location, setLocation] = useState<string>("");
 
   const router = useRouter();
   return (
@@ -19,8 +19,8 @@ const SearchBar = () => {
       <button
         className="bg-[#DA3743] px-9 py-2 rounded text-white font-bold"
         onClick={() => {
-          if (location === "banana") return;
-          router.push("/search");
+          if (location === "") return;
+          router.push(`/search?city=${location}`);
         }}
       >
         Let's go
