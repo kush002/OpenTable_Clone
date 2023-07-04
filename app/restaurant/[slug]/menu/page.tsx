@@ -5,6 +5,7 @@ import Header from "../components/Header";
 import RestaurantNavBar from "../components/RestaurantNavBar";
 import Menu from "../components/Menu";
 import { PrismaClient } from "@prisma/client";
+import { notFound } from "next/navigation";
 
 const prisma = new PrismaClient();
 
@@ -16,7 +17,7 @@ const fetchItems = async (slug: string) => {
     },
   });
 
-  if (!restaurant) throw new Error("Restaurant details incomplete");
+  if (!restaurant) notFound();
 
   return restaurant.items;
 };
