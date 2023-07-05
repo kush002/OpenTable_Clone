@@ -1,6 +1,7 @@
 "use client";
 import Link from "next/link";
 import React from "react";
+import LoginModal from "./LoginModal";
 
 const NavBar = () => {
   return (
@@ -10,10 +11,8 @@ const NavBar = () => {
       </Link>
       <div>
         <div className="flex">
-          <button className="bg-[#247F9E] text-white border p-1 px-4 rounded mr-3 ">
-            Sign In
-          </button>
-          <button className="border p-1 px-4 rounded">Sign Up</button>
+          <LoginModal isSignin={true} />
+          <LoginModal isSignin={false} />
         </div>
       </div>
     </nav>
