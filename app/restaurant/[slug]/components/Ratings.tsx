@@ -8,7 +8,7 @@ const Ratings = ({ reviews }: { reviews: Review[] }) => {
   reviews.forEach((review, i) => {
     ratingSum += review.rating;
   });
-  // console.log(ratingSum, totalRatingCount);
+
   const totalRating = ratingSum / reviews.length;
 
   return (
