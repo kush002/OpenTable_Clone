@@ -12,7 +12,7 @@ const Reviews = ({ reviews }: { reviews: Review[] }) => {
         {/* Review Card */}
 
         {reviews.map((review) => (
-          <ReviewCard review={review} />
+          <ReviewCard key={review.id} review={review} />
         ))}
         {/* Review Card */}
       </div>
