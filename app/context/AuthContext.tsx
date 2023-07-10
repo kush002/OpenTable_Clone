@@ -53,11 +53,14 @@ const AuthContext = ({ children }: { children: React.ReactNode }) => {
         });
       }
 
-      const response = await axios.get("http://localhost:3000/api/auth/me", {
-        headers: {
-          Authorization: `Bearer ${jwt}`,
-        },
-      });
+      const response = await axios.get(
+        `${process.env.NEXTAUTH_URL}/api/auth/me`,
+        {
+          headers: {
+            Authorization: `Bearer ${jwt}`,
+          },
+        }
+      );
 
       axios.defaults.headers.common["Authorization"] = `Bearer ${jwt}`;
 
