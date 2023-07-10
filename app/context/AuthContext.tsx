@@ -52,7 +52,7 @@ const AuthContext = ({ children }: { children: React.ReactNode }) => {
           error: null,
         });
       }
-      console.log(`${process.env.NEXTAUTH_URL}/api/auth/me`);
+
       const response = await axios.get(
         `${process.env.NEXTAUTH_URL}/api/auth/me`,
         {
@@ -61,7 +61,7 @@ const AuthContext = ({ children }: { children: React.ReactNode }) => {
           },
         }
       );
-      console.log(`${process.env.NEXTAUTH_URL}/api/auth/me`);
+
       axios.defaults.headers.common["Authorization"] = `Bearer ${jwt}`;
 
       setAuthState({
