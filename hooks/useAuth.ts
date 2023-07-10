@@ -22,13 +22,11 @@ const useAuth = () => {
     });
 
     try {
-      const response = await axios.post(
-        `${process.env.NEXTAUTH_URL}/api/auth/signin`,
-        {
-          email,
-          password,
-        }
-      );
+      const baseURL = process.env.NEXT_PUBLIC_NEXTAUTH_URL;
+      const response = await axios.post(`${baseURL}/api/auth/signin`, {
+        email,
+        password,
+      });
 
       setAuthState({
         loading: false,
@@ -69,17 +67,15 @@ const useAuth = () => {
     });
 
     try {
-      const response = await axios.post(
-        `${process.env.NEXTAUTH_URL}/api/auth/signup`,
-        {
-          email,
-          password,
-          firstName,
-          lastName,
-          city,
-          phone,
-        }
-      );
+      const baseURL = process.env.NEXT_PUBLIC_NEXTAUTH_URL;
+      const response = await axios.post(`${baseURL}/api/auth/signup`, {
+        email,
+        password,
+        firstName,
+        lastName,
+        city,
+        phone,
+      });
 
       setAuthState({
         loading: false,
