@@ -54,7 +54,7 @@ const AuthContext = ({ children }: { children: React.ReactNode }) => {
       }
 
       const response = await axios.get(
-        `${process.env.NEXTAUTH_URL}/api/auth/me`,
+        `${process.env.NEXTAUTH_URL}api/auth/me`,
         {
           headers: {
             Authorization: `Bearer ${jwt}`,
