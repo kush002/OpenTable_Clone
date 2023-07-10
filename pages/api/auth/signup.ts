@@ -94,7 +94,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     const alg = "HS256";
 
-    const secret = new TextEncoder().encode(process.env.JSON_SECRET);
+    const secret = new TextEncoder().encode(process.env.NEXTAUTH_SECRET);
 
     const token = await new jose.SignJWT({ email: user.email })
       .setProtectedHeader({ alg })
