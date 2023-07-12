@@ -56,6 +56,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     where: { slug },
     select: {
       tables: true,
+      open_time: true,
+      close_time: true,
     },
   });
 
@@ -83,14 +85,29 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     });
   });
 
+  const availabilities = searchTimesWithTables
+    .map((t) => {
+      const sumSeats = t.tables.reduce((sum, table) => {
+        return sum + table.seats;
+      }, 0);
+
+      return { time: t.time, available: sumSeats >= +partySize };
+    })
+    .filter((availability) => {
+      const timeIsAfterOpeningHour =
+        new Date(`${day}T${availability.time}`) >=
+        new Date(`${day}T${restaurant.open_time}`);
+      const timeIsBeforeClosingHour =
+        new Date(`${day}T${availability.time}`) <=
+        new Date(`${day}T${restaurant.close_time}`);
+
+      return timeIsAfterOpeningHour && timeIsBeforeClosingHour;
+    });
+
   return res.json({
-    searchTimes,
-    bookings,
-    bookingTableObj,
-    tables,
-    searchTimesWithTables,
+    availabilities,
   });
 };
 
 export default handler;
-// http://localhost:3000/api/restaurant/last-train-to-delhi-ottawa/availability?slug=lastTrain&day=2023-09-07&time=22:30:00.000Z&partySize=6
+// http://localhost:3000/api/restaurant/last-train-to-delhi-ottawa/availability?slug=lastTrain&day=2023-12-07&time=22:30:00.000Z&partySize=6
