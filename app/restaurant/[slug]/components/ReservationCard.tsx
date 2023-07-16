@@ -3,6 +3,9 @@ import React, { useState } from "react";
 import { partySize as partySizes, times } from "../../../../data/index";
 import DatePicker from "react-datepicker";
 import useAvailability from "../../../../hooks/useAvailability";
+import { CircularProgress } from "@mui/material";
+import Link from "next/link";
+import { convertToDisplayTime } from "../../../../utils/convertToDisplayTime";
 
 const ReservationCard = ({
   openTime,
@@ -13,12 +16,15 @@ const ReservationCard = ({
   closeTime: string;
   slug: string;
 }) => {
+  const currentDate = new Date();
+  const istOffset = 330 * 60 * 1000; // IST offset is 5 hours 30 minutes ahead of UTC
+  currentDate.setTime(currentDate.getTime() + istOffset);
   const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
   const { loading, data, error, fetchAvailabilities } = useAvailability();
   const [time, setTime] = useState(openTime);
   const [partySize, setPartySize] = useState("2");
-  const [day, setDay] = useState(new Date().toISOString().split("T")[0]);
-
+  const [day, setDay] = useState(currentDate.toISOString().split("T")[0]);
+  console.log(day);
   const handleClick = () => {
     fetchAvailabilities({ slug, time, day, partySize });
   };
@@ -104,9 +110,30 @@ const ReservationCard = ({
             className="bg-red-600 w-full rounded px-4 text-white font-bold h-14"
             onClick={handleClick}
           >
-            Find a Time
+            {loading ? <CircularProgress color="inherit" /> : "Find a Time"}
           </button>
         </div>
+        {data && data.length ? (
+          <div className="mt-4">
+            <p className="text-reg ">Select a Time</p>
+            <div className="flex flex-wrap mt-2">
+              {data.map((time) => {
+                return time.available ? (
+                  <Link
+                    href={`/reserve/${slug}?date=${day}T${time.time}&partySize=${partySize}`}
+                    className="bg-red-600 cursor-pointer p-2 w-24 text-center text-white mb-3 rounded mr-3"
+                  >
+                    <p className="text-sm font-bold">
+                      {convertToDisplayTime(time.time)}
+                    </p>
+                  </Link>
+                ) : (
+                  <div className="bg-gray-300 p-2 w-24 mb-3 rounded mr-3"></div>
+                );
+              })}
+            </div>
+          </div>
+        ) : null}
       </div>
     </div>
   );

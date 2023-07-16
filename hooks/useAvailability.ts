@@ -3,7 +3,9 @@ import { useState } from "react";
 
 const useAvailability = () => {
   const [loading, setLoading] = useState(false);
-  const [data, setData] = useState(null);
+  const [data, setData] = useState<
+    { time: string; available: boolean }[] | null
+  >(null);
   const [error, setError] = useState(null);
 
   const fetchAvailabilities = async ({
@@ -17,10 +19,8 @@ const useAvailability = () => {
     day: string;
     partySize: string;
   }) => {
-    console.log({ slug, time, day, partySize });
-    return;
     setLoading(true);
-
+    console.log({ slug, time, day, partySize });
     try {
       const response = await axios.get(
         `http://localhost:3000/api/restaurant/${slug}/availability`,
@@ -34,9 +34,9 @@ const useAvailability = () => {
       );
       setLoading(false);
 
-      return response.data;
+      return setData(response.data);
     } catch (error: any) {
-      return error.response.data.errorMessage;
+      return setError(error.response.data.errorMessage);
     }
   };
 
